@@ -1,0 +1,27 @@
+trigger: none
+
+pool:
+  vmImage: ubuntu-latest
+
+stages:
+  - stage: cdktfinstall
+    displayName: "CDKTF install on agent"
+    jobs:
+      - job: install
+        displayName: "CDKTF install and diff"
+        container:
+          image: cdktf:latest
+          endpoint: containerregistry
+        steps:
+          - task: martenvandijk.cdktf.task.cdktf@0
+            displayName: 'cdktf install'
+            inputs:
+              command: install
+              workingDirectory: $(Build.SourcesDirectory) # the working directory needs to have a valid cdktf.json
+              azureRmConnection: to-my-subscription
+          - task: martenvandijk.cdktf.task.cdktf@0
+            displayName: 'cdktf diff'
+            inputs:
+              command: diff
+              workingDirectory: $(Build.SourcesDirectory) # the working directory needs to have a valid cdktf.json
+              azureRmConnection: to-my-subscription
