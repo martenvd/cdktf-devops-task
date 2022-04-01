@@ -1,0 +1,47 @@
+{
+    "$schema": "https://raw.githubusercontent.com/Microsoft/azure-pipelines-task-lib/master/tasks.schema.json",
+    "id": "b0678e43-9931-4ebf-a286-aa35994b6bc3",
+    "name": "cdktf",
+    "friendlyName": "CDKTF DevOps Pipelines Task",
+    "description": "A CDK for Terraform task for Azure DevOps pipelines.",
+    "helpMarkDown": "",
+    "category": "Utility",
+    "author": "Marten van Dijk",
+    "version": {
+        "Major": 0,
+        "Minor": 0,
+        "Patch": 1
+    },
+    "instanceNameFormat": "cdktf $(command)",
+    "inputs": [
+        {
+            "name": "command",
+            "type": "string",
+            "label": "Command for CDKTF",
+            "defaultValue": "plan",
+            "required": true,
+            "helpMarkDown": "Command for CDKTF"
+        },
+        {
+            "name": "workingDirectory",
+            "type": "filePath",
+            "label": "Configuration Directory",
+            "defaultValue": "$(System.DefaultWorkingDirectory)",
+            "helpMarkDown": "The directory from which the cdktf code will be accessible.",
+            "required": false
+        },
+        {
+            "name": "azureRmConnection",
+            "type": "connectedService:AzureRM",
+            "label": "Backend Azure Service Connection",
+            "required": false,
+            "helpMarkDown": "Select an Azure Resource Manager service connection for backend authorization.",
+            "groupName": "backendAzureRm"
+        }
+    ],
+    "execution": {
+        "Node10": {
+            "target": "index.js"
+        }
+    }
+}
