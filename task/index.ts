@@ -2,24 +2,37 @@ import path = require("path");
 import tl = require("azure-pipelines-task-lib");
 import { exec } from 'child_process';
 
-export class azureclitask {
+export class cdktftask {
     public static checkIfAzurePythonSdkIsInstalled() {
         return !!tl.which("az", false);
     }
 
-    public static async run(): Promise<void> {
+    public static async run() {
         try {
-            var azureRmConnection: string = tl.getInput("azureRmConnection", true)!;
+            var command: string | undefined = tl.getInput('command', true);
+            var workingDirectory: string | undefined = tl.getInput('workingDirectory', false);
+            var azureRmConnection: string = tl.getInput("azureRmConnection", true) || "";
             this.loginAzureRM(azureRmConnection);
 
-            var workingDirectory: string | undefined = tl.getInput('workingDirectory', true);
-            if (typeof workingDirectory != "string") {
-                tl.setResult(tl.TaskResult.Failed, 'Bad input was given');
+            console.log(workingDirectory);
+            if (workingDirectory != undefined) {
+                exec(`cd ${workingDirectory}`, (error, stdout, stderr) => {
+                    if (error) {
+                        console.log(`error: ${error.message}`);
+                        return;
+                    }
+                    if (stderr) {
+                        console.log(`stderr: ${stderr}`);
+                        tl.setResult(tl.TaskResult.Failed, 'Workingdirectory must be a valid directory.');
+                        return;
+                    }
+                    console.log(`stdout: ${stdout}`);
+                });
                 return;
             }
-            var command: string | undefined = tl.getInput('command', true);
+
             if (command != 'diff' && command != 'deploy' && command != 'install' && command != 'destroy') {
-                tl.setResult(tl.TaskResult.Failed, 'Bad input was given');
+                tl.setResult(tl.TaskResult.Failed, 'You need to enter one of the following cdktf commands: install, diff, deploy, destroy');
                 return;
             } else if (command == 'install') {
                 exec(`sudo npm install --global cdktf-cli@latest`, (error, stdout, stderr) => {
@@ -57,24 +70,20 @@ export class azureclitask {
     }
 
 
-    private static loginAzureRM(connectedService: string): void {
+    private static loginAzureRM(connectedService: string) {
         var subscriptionID: string = tl.getEndpointDataParameter(connectedService, "SubscriptionID", true) || "";
 
         let cliPassword: string = "";
         var servicePrincipalId: string = tl.getEndpointAuthorizationParameter(connectedService, "serviceprincipalid", false) || "";
         var tenantId: string = tl.getEndpointAuthorizationParameter(connectedService, "tenantid", false) || "";
-
-
         
         tl.debug('key based endpoint');
         cliPassword = tl.getEndpointAuthorizationParameter(connectedService, "serviceprincipalkey", false) || "";
         
-
         let escapedCliPassword = cliPassword.replace(/"/g, '\\"');
         tl.setSecret(escapedCliPassword.replace(/\\/g, '\"'));
         //login using svn
         tl.execSync("az", `login --service-principal -u "${servicePrincipalId}" --password="${escapedCliPassword}" --tenant "${tenantId}"`);
-    
      
         //set the subscription imported to the current subscription
         tl.execSync("az", "account set --subscription \"" + subscriptionID + "\"");
@@ -84,8 +93,8 @@ export class azureclitask {
 
 tl.setResourcePath(path.join(__dirname, "task.json"));
 
-if (!azureclitask.checkIfAzurePythonSdkIsInstalled()) {
+if (!cdktftask.checkIfAzurePythonSdkIsInstalled()) {
     tl.setResult(tl.TaskResult.Failed, tl.loc("AzureSDKNotFound"));
 }
 
-azureclitask.run();
+cdktftask.run();

@@ -5,6 +5,8 @@ import path = require('path');
 let taskPath = path.join(__dirname, '..', 'index.js');
 let tmr: tmrm.TaskMockRunner = new tmrm.TaskMockRunner(taskPath);
 
-tmr.setInput('samplestring', 'bad');
+tmr.setInput('command', 'bad');
+tmr.setInput('workingDirectory', '/bla');
+tmr.setInput('azureRmConnection', 'bad');
 
 tmr.run();
