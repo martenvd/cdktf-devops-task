@@ -34,7 +34,7 @@
             "name": "azureRmConnection",
             "type": "connectedService:AzureRM",
             "label": "Backend Azure Service Connection",
-            "required": false,
+            "required": true,
             "helpMarkDown": "Select an Azure Resource Manager service connection for backend authorization.",
             "groupName": "backendAzureRm"
         }
