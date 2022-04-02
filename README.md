@@ -13,6 +13,3 @@ npm install mocha --save-dev -g && \
 npm install sync-request --save-dev && \
 npm install @types/mocha --save-dev
 ```
-
-## Tests
-Tests still have to be written for the current code.
