@@ -1,0 +1,51 @@
+[
+  {
+    "name": "Self service",
+    "ring": "adopt",
+    "quadrant": "techniques",
+    "isNew": "FALSE",
+    "description": "Self service biedt een ontkoppeling van afhankelijkheden op het Cloud Platform team aan. Self service faciliteert product teams om hun producten sneller live te krijgen zonder de hulp van een traditioneel deployment team."
+  },
+  {
+    "name": "Kanban",
+    "ring": "adopt",
+    "quadrant": "techniques",
+    "isNew": "FALSE",
+    "description": "Self service biedt een ontkoppeling van afhankelijkheden op het Cloud Platform team aan. Self service faciliteert product teams om hun producten sneller live te krijgen zonder de hulp van een traditioneel deployment team."
+  },
+  {
+    "name": "draw.io",
+    "ring": "adopt",
+    "quadrant": "tools",
+    "isNew": "FALSE",
+    "description": "draw.io heeft zich meerdere malen bewezen als een goede tool om architectuurplaten te maken en heeft een scala aan verschillende templates, waaronder een meerderheid aan afbeeldingen van Azure diensten."
+  },
+  {
+    "name": "Terraform",
+    "ring": "adopt",
+    "quadrant": "tools",
+    "isNew": "FALSE",
+    "description": "Terraform is de defacto standaard voor het uitrollen van infrastructuur als code binnen Mosadex E-health. Terraform is wereldwijd ook de nummer één tool om IaC te beheren en heeft heel veel integratie mogelijkheden met de bestaande Cloud Platformen, waaronder Azure."
+  },
+  {
+    "name": "Azure DevOps",
+    "ring": "adopt",
+    "quadrant": "platforms",
+    "isNew": "FALSE",
+    "description": "Azure DevOps heeft een verfijnde rechtenstructuur (af en toe wat te complex), CI/CD mogelijkheden inclusief eigen CI/CD framework, git integratie, projectmogelijkheden en veel meer. Azure DevOps is een degelijk enterprise platform met voldoende mogelijkheden voor Mosadex E-health. Aan integratie kan het af en toe nog schorten, voornamelijk omdat de doorontwikkeling aan de kant van Microsoft niet voldoende gebeurt."
+  },
+  {
+    "name": "GitHub",
+    "ring": "assess",
+    "quadrant": "platforms",
+    "isNew": "TRUE",
+    "description": "Microsoft zet de laatste jaren na de aankoop van GitHub hevig in in het aan boord krijgen van een hoop kwaliteits tooling om het platform klaar te krijgen voor enterprise bedrijven. Het Cloud Platform team moet nog uitzoeken welke features GitHub wel heeft en Azure DevOps weer niet, waar GitHub in excelleert en waar Azure DevOps weer in uitblinkt en welke mogelijkheden GitHub Mosadex E-health zou kunnen bieden."
+  },
+  {
+    "name": "Powershell",
+    "ring": "adopt",
+    "quadrant": "languages & frameworks",
+    "isNew": "FALSE",
+    "description": "Powershell..."
+  }
+]
